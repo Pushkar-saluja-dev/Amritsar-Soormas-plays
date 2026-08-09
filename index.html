@@ -1089,6 +1089,256 @@ console.log("Made by Daybreak: https://daybreak.studio");
   stroke-linejoin: round;
 }
 
+
+/* Soorma Roster Sections */
+.soorma-roster-section {
+  position: relative;
+  background-color: #000;
+  color: #fff;
+  padding: 100px 5%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  font-family: Inter, sans-serif;
+}
+
+/* MARQUEE */
+.soorma-marquee {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+.soorma-marquee-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(80px, 15vw, 240px);
+  font-weight: 900;
+  color: #1a1a1a;
+  white-space: nowrap;
+  line-height: 0.8;
+  z-index: 0;
+  letter-spacing: -0.05em;
+  text-align: center;
+}
+.soorma-marquee-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  align-items: center;
+  justify-content: space-between;
+}
+.soorma-marquee-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.soorma-marquee-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.soorma-marquee-meta span {
+  font-size: 11px;
+  color: #f97316; /* Orange accent */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.soorma-marquee-meta strong {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ef4444;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.soorma-marquee-stats {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  margin-top: 20px;
+}
+.soorma-marquee-stats span {
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.soorma-marquee-stats strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.soorma-marquee-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.soorma-marquee-center-frame {
+  position: relative;
+  padding: 20px;
+}
+.soorma-marquee-center-frame::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 1px solid #f97316;
+  transform: rotate(-3deg);
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0.5;
+  transition: transform 0.5s ease;
+}
+.soorma-marquee-center:hover .soorma-marquee-center-frame::before {
+  transform: rotate(0deg) scale(1.05);
+  opacity: 1;
+}
+.soorma-marquee-img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  transition: transform 0.5s ease;
+}
+.soorma-marquee-center:hover .soorma-marquee-img {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.soorma-marquee-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+.soorma-btn {
+  padding: 16px 32px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 200px;
+}
+.soorma-btn-primary {
+  background: #3b82f6;
+  color: #fff;
+  border: 1px solid #3b82f6;
+}
+.soorma-btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+.soorma-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #475569;
+}
+.soorma-btn-secondary:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
+/* TIERS COMMON */
+.soorma-tier-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 40px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.soorma-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.soorma-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+.soorma-card:hover {
+  border-color: #f97316;
+  transform: translateY(-5px);
+  background: #1a1a1a;
+}
+.soorma-card-img-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #262626;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #525252;
+  font-size: 12px;
+  font-weight: 600;
+}
+.soorma-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+.soorma-card-role {
+  font-size: 12px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* SPECIFIC GRIDS */
+.iconic-card { max-width: 350px; }
+.aplus-card { max-width: 280px; }
+.squad-card { max-width: 220px; }
+
+@media (max-width: 991px) {
+  .soorma-marquee-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  .soorma-marquee-right { align-items: center; }
+  .soorma-marquee-stats { justify-content: center; }
+  .soorma-marquee-meta strong { justify-content: center; }
+}
 </style>
 </head><body class="mf1-body"><iframe class="_ccpa-iframe_163y6_1" frameborder="0" id="ccpa-iframe" referrerpolicy="strict-origin" src="https://www.dropbox.com/ccpa_iframe?hide_gdpr=false&amp;should_disable_banner=false&amp;gpc=false&amp;origin=https%253A%252F%252Fdash.dropbox.com&amp;uri_for_logging=dash.dropbox.com&amp;should_show_floating_button=false&amp;should_auto_open_options=undefined&amp;width=1440&amp;locale_override=en&amp;local_cookie_expired_ts=1802165727302&amp;parent_domain_consent_cookie=%257B%2522consentType%2522%253A1%252C%2522consentDate%2522%253A%25222026-08-09T09%253A35%253A27.302Z%2522%252C%2522expireDate%2522%253A%25222027-02-09T09%253A35%253A27.302Z%2522%252C%2522consentMonths%2522%253A6%252C%2522categories%2522%253A%257B%2522strictly%2520necessary%2522%253Atrue%252C%2522general%2520marketing%2520and%2520advertising%2522%253Atrue%252C%2522analytics%2522%253Atrue%252C%2522performance%2520and%2520functionality%2522%253Atrue%252C%2522social%2520media%2520advertising%2522%253Atrue%257D%252C%2522userInteracted%2522%253Atrue%252C%2522numDots%2522%253A1%257D&amp;default_non_ccpa=true" tabindex="1" title="Cookies &amp; CCPA Preferences - Dropbox"></iframe><div class="mf1-global-styles w-embed"><style>
  
@@ -1874,67 +2124,109 @@ document.addEventListener('DOMContentLoaded', () => {
 <path d="M0 100 L100 100 L0 0 Z"></path>
 </svg></div><div class="mf1-hero-stripe-negative-right w-embed" inert="true"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 <path d="M100 0 L100 100 L0 0 Z"></path>
-</svg></div><div class="mf1-hero-stripe-cover" inert="true"></div><img id="hero-left-logo" src="Branding_stuff/Logo.png?v=2" style="position: absolute; left: 50%; transform: translateX(-600px); top: 35px; width: 170px; height: auto; z-index: 100;"/></div></section><section class="mf1-quote-section"><div class="w-layout-blockcontainer mf1-quote-content-container w-container"><div class="mf1-quote-container" id="w-node-cb2fc037-d0cb-4d7e-781d-6b4e54258412-f9f398e2"><blockquote class="mf1-blockquote"><strong>“</strong>Cricket Team Mastercard Cricket marketing teams use Dash to quickly find and share the content fans crave, keeping social coverage fast, global, and always on pace<strong>”</strong></blockquote><div class="mf1-quote-attribution"><p class="mf1-quote-attribution-name">— Louise McEwen</p><p class="mf1-quote-attribution-title">Chief Marketing Officer, Cricket Team Racing</p></div><div class="w-embed"><style>
+</svg></div><div class="mf1-hero-stripe-cover" inert="true"></div><img id="hero-left-logo" src="Branding_stuff/Logo.png?v=2" style="position: absolute; left: 50%; transform: translateX(-600px); top: 35px; width: 170px; height: auto; z-index: 100;"/></div></section>
+<section class="soorma-roster-section" id="player-roster">
+<!-- MARQUEE: Abhishek -->
+<div class="soorma-marquee">
+<div class="soorma-marquee-bg-text">THIS IS AMRITSAR</div>
+<div class="soorma-marquee-content">
+<div class="soorma-marquee-left">
+<div class="soorma-marquee-meta">
+<span>COORDINATES</span>
+<strong>31.6340° N, 74.8723° E</strong>
+</div>
+<div class="soorma-marquee-meta">
+<span>STATUS</span>
+<strong><span class="pulse-dot"></span> ACTIVE ROSTER</strong>
+</div>
+<div class="soorma-marquee-stats">
+<span>MTS</span><strong> 104</strong>
+<span>RUNS</span><strong> 2671</strong>
+<span>STR</span><strong> 153.56</strong>
+<span>HS</span><strong> 100*</strong>
+</div>
+</div>
+<div class="soorma-marquee-center">
+<div class="soorma-marquee-center-frame">
+<img alt="Abhishek Sharma" class="soorma-marquee-img" loading="lazy" src="Branding_stuff/Abhishek Sharma.png"/>
+</div>
+</div>
+<div class="soorma-marquee-right">
+<a class="soorma-btn soorma-btn-primary" href="#player-roster">MEET THE SOORMAS</a>
+<a class="soorma-btn soorma-btn-secondary" href="#player-roster">EXPLORE TEAM</a>
+</div>
+</div>
+</div>
+<!-- ICONIC SOORMAS -->
+<div class="soorma-tier">
+<h2 class="soorma-tier-title">ICONIC SOORMAS</h2>
+<div class="soorma-grid">
+<div class="soorma-card iconic-card">
+<div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div>
+<div class="soorma-card-name">PLAYER NAME</div>
+<div class="soorma-card-role">BATSMAN</div>
+</div>
+<div class="soorma-card iconic-card">
+<div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div>
+<div class="soorma-card-name">PLAYER NAME</div>
+<div class="soorma-card-role">BOWLER</div>
+</div>
+</div>
+</div>
+<!-- A+ PLAYERS -->
+<div class="soorma-tier">
+<h2 class="soorma-tier-title">A+ PLAYERS</h2>
+<div class="soorma-grid">
+<div class="soorma-card aplus-card">
+<div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div>
+<div class="soorma-card-name">PLAYER NAME</div>
+<div class="soorma-card-role">ALL-ROUNDER</div>
+</div>
+<div class="soorma-card aplus-card">
+<div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div>
+<div class="soorma-card-name">PLAYER NAME</div>
+<div class="soorma-card-role">BATSMAN</div>
+</div>
+<div class="soorma-card aplus-card">
+<div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div>
+<div class="soorma-card-name">PLAYER NAME</div>
+<div class="soorma-card-role">BOWLER</div>
+</div>
+</div>
+</div>
+<!-- THE SOORMA SQUAD -->
+<div class="soorma-tier">
+<h2 class="soorma-tier-title">THE SOORMA SQUAD</h2>
+<div class="soorma-grid">
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+<div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
+</div>
+</div>
 
-@media (min-width: 1600px) {
-  .mf1-quote-container {
-    field-area: 1 / 4 / 2 / 10 !important;
+<script>
+window.addEventListener('scroll', () => {
+  const marquee = document.querySelector('.soorma-marquee');
+  if (!marquee) return;
+  const rect = marquee.getBoundingClientRect();
+  const scrollRatio = 1 - (rect.bottom / window.innerHeight);
+  
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    const bgText = marquee.querySelector('.soorma-marquee-bg-text');
+    const img = marquee.querySelector('.soorma-marquee-img');
+    
+    if (bgText) bgText.style.transform = `translate(-50%, calc(-50% + ${scrollRatio * 100}px))`;
+    if (img) img.style.transform = `translateY(${scrollRatio * -50}px) scale(${1 + Math.abs(scrollRatio)*0.05})`;
   }
-}
-
-</style></div></div><div class="mf1-quote-checker-area" id="w-node-cb2fc037-d0cb-4d7e-781d-6b4e5425841f-f9f398e2" inert="true"><div class="mf1-quote-checker-3"><div class="mf1-checker"><div class="mf1-checker-left w-embed"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M100 0 L100 100 L0 0 Z"></path>
-</svg></div><div class="mf1-checker-right w-embed"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M0 100 L100 100 L0 0 Z"></path>
-</svg></div></div></div><div class="mf1-quote-checker-2"><div class="mf1-checker"><div class="mf1-checker-left w-embed"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M100 0 L100 100 L0 0 Z"></path>
-</svg></div><div class="mf1-checker-right w-embed"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M0 100 L100 100 L0 0 Z"></path>
-</svg></div></div></div><div class="mf1-quote-checker-1"><div class="mf1-checker"><div class="mf1-checker-left w-embed"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M100 0 L100 100 L0 0 Z"></path>
-</svg></div><div class="mf1-checker-right w-embed"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M0 100 L100 100 L0 0 Z"></path>
-</svg></div></div></div><div class="mf1-quote-checkers-texture"></div></div></div><div class="mf1-quote-hero-stripe-top-corner w-embed"><style>
-
-  @media (min-width: 1920px) {
-    .mf1-quote-hero-stripe-top-corner {
-      width: calc(min(100vh, 1920px) * .282842712475);
-    }
-  }
-
-  .mf1-clipped-container {
-    position: absolute;
-    inset: 0;
-    -webkit-clip-path: url(#triangle-clip);
-    clip-path: url(#triangle-clip);
-  }
-
-  .mf1-background-layer {
-    background: var(--mclaren-f1--papaya);
-    position: absolute;
-    inset: 0;
-  }
-
-  .mf1-texture-layer {
-    background-image: url('https://cdn.prod.website-files.com/68128ae464f54be2f37033b8/683a1d6797551b5383150e21_texture.jpg');
-    background-repeat: repeat;
-    background-position: top right;
-    background-size: 786px auto;
-    position: absolute;
-    inset: 0;
-    mix-blend-mode: color-burn;
-    image-rendering: pixelated;
-  }
-</style>
-<svg height="0" style="position: absolute;" width="0">
-<clippath clippathunits="objectBoundingBox" id="triangle-clip">
-<path d="M1 0 L1 1 L0 0 Z"></path>
-</clippath>
-</svg>
-<div class="mf1-clipped-container">
-<div class="mf1-background-layer"></div>
-<div class="mf1-texture-layer"></div>
-</div></div></section><section class="mf1-search-section"><div class="w-layout-blockcontainer mf1-section-content-container w-container"><div class="mf1-search-cards-container"><div class="mf1-search-connector mf1-6" id="search-connector-6" style="opacity: 0; transform: translate(20%, 150%) rotate(-6.48884deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png 778w"/></div><div class="mf1-search-connector mf1-5" id="search-connector-5" style="opacity: 0; transform: translate(150%, -50%) rotate(5.02798deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="(max-width: 688px) 100vw, 688px" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png 688w"/></div><div class="mf1-search-connector mf1-4" id="search-connector-4" style="opacity: 0; transform: translate(-130%, -100%) rotate(-4.92815deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c2594b29f138a4026126a3_Group%201400005878%20(1).png"/></div><div class="mf1-search-connector mf1-3" id="search-connector-3" style="opacity: 0; transform: translate(180%, 20%) rotate(0.177808deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png 527w"/></div><div class="mf1-search-connector mf1-2" id="search-connector-2" style="opacity: 0; transform: translate(-60%, 150%) rotate(8.85873deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png 729w"/></div><div class="mf1-search-connector mf1-1" id="search-connector-1" style="opacity: 0; transform: translate(-200%, 10%) rotate(-3.02342deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png 634w"/></div></div><div class="mf1-search-content" id="w-node-cb2fc037-d0cb-4d7e-781d-6b4e5425843d-f9f398e2"><div class="mf1-content-text-area"><p class="mf1-caption">Dropbox Dash</p><h2 class="mf1-h2">Steering through complexity with Dash</h2><p class="mf1-paragraph">With thousands of files moving between teams and tools, Cricket Team uses Dash to cut through the chaos and stay ahead of the pack. AI-powered search surfaces what they need across platforms, chat can draft and summarize in seconds, and Stacks turn scattered resources into shared project hubs.</p></div><div aria-label="A search box query for Monaco campaign content." class="mf1-search-box-container" id="search-box-container" style="transform: translate(0px, 0px);"><div aria-hidden="true" class="mf1-search-box-border-mask"><div class="mf1-search-box-border"><div class="mf1-search-box-border-embed w-embed" id="search-box-border-embed"><svg height="100%" preserveaspectratio="none" viewbox="0 0 900 100" width="100%" xmlns="http://www.w3.org/2000/svg">
+});
+</script>
+</section>
+<section class="mf1-search-section"><div class="w-layout-blockcontainer mf1-section-content-container w-container"><div class="mf1-search-cards-container"><div class="mf1-search-connector mf1-6" id="search-connector-6" style="opacity: 0; transform: translate(20%, 150%) rotate(-6.48884deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png 778w"/></div><div class="mf1-search-connector mf1-5" id="search-connector-5" style="opacity: 0; transform: translate(150%, -50%) rotate(5.02798deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="(max-width: 688px) 100vw, 688px" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png 688w"/></div><div class="mf1-search-connector mf1-4" id="search-connector-4" style="opacity: 0; transform: translate(-130%, -100%) rotate(-4.92815deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c2594b29f138a4026126a3_Group%201400005878%20(1).png"/></div><div class="mf1-search-connector mf1-3" id="search-connector-3" style="opacity: 0; transform: translate(180%, 20%) rotate(0.177808deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png 527w"/></div><div class="mf1-search-connector mf1-2" id="search-connector-2" style="opacity: 0; transform: translate(-60%, 150%) rotate(8.85873deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png 729w"/></div><div class="mf1-search-connector mf1-1" id="search-connector-1" style="opacity: 0; transform: translate(-200%, 10%) rotate(-3.02342deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png 634w"/></div></div><div class="mf1-search-content" id="w-node-cb2fc037-d0cb-4d7e-781d-6b4e5425843d-f9f398e2"><div class="mf1-content-text-area"><p class="mf1-caption">Dropbox Dash</p><h2 class="mf1-h2">Steering through complexity with Dash</h2><p class="mf1-paragraph">With thousands of files moving between teams and tools, Cricket Team uses Dash to cut through the chaos and stay ahead of the pack. AI-powered search surfaces what they need across platforms, chat can draft and summarize in seconds, and Stacks turn scattered resources into shared project hubs.</p></div><div aria-label="A search box query for Monaco campaign content." class="mf1-search-box-container" id="search-box-container" style="transform: translate(0px, 0px);"><div aria-hidden="true" class="mf1-search-box-border-mask"><div class="mf1-search-box-border"><div class="mf1-search-box-border-embed w-embed" id="search-box-border-embed"><svg height="100%" preserveaspectratio="none" viewbox="0 0 900 100" width="100%" xmlns="http://www.w3.org/2000/svg">
 <rect class="mf1-search-box-rect-trace" fill="none" height="100" pathlength="1" rx="40" ry="40" stroke="currentColor" stroke-width="50" width="900" x="0" y="0"></rect>
 </svg></div></div></div><div aria-hidden="true" class="mf1-search-box" id="search-box" style="box-shadow: 0 1px 6px rgba(var(--dbx-blue-rgb), 0.1), 0 3px 12px rgba(var(--dbx-blue-rgb), 0.1), 0 5px 20px rgba(var(--dbx-blue-rgb), 0.1);"><div class="mf1-search-box-placeholder-text" id="search-box-placeholder-text">2026 Marketing Materials</div><div class="mf1-search-box-filled-text" id="search-box-filled-text">Monaco Campaign Content</div><div aria-hidden="true" class="mf1-search-box-icon w-embed"><svg fill="currentColor" viewbox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
 <path d="M28 26.1851L21.1424 19.3275C22.3038 17.5771 22.8891 15.5075 22.8162 13.4081C22.8162 7.51691 19.2992 4 13.4081 4C7.51691 4 4 7.51691 4 13.4081C4 19.2992 7.51691 22.8162 13.4081 22.8162C15.5077 22.8892 17.5777 22.304 19.3283 21.1424L26.186 28L28 26.1851ZM6.56584 13.4081C6.56584 8.9324 8.9324 6.56584 13.4081 6.56584C17.8838 6.56584 20.2503 8.9324 20.2503 13.4081C20.2503 17.8838 17.8838 20.2503 13.4081 20.2503C8.9324 20.2503 6.56584 17.8838 6.56584 13.4081Z"></path>
