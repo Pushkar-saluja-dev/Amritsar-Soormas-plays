@@ -1096,7 +1096,7 @@ console.log("Made by Daybreak: https://daybreak.studio");
   position: relative;
   background-color: #000;
   color: #fff;
-  height: 400vh; /* 4 slides */
+  height: 250vh; /* 4 slides */
   width: 100%;
   padding: 0;
   display: block;
@@ -2161,9 +2161,19 @@ document.addEventListener('DOMContentLoaded', () => {
 </svg></div><div class="mf1-hero-stripe-negative-right w-embed" inert="true"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 <path d="M100 0 L100 100 L0 0 Z"></path>
 </svg></div><div class="mf1-hero-stripe-cover" inert="true"></div><img id="hero-left-logo" src="Branding_stuff/Logo.png?v=2" style="position: absolute; left: 50%; transform: translateX(-600px); top: 35px; width: 170px; height: auto; z-index: 100;"/></div></section>
-
 <section class="soorma-roster-section" id="player-roster">
 <div class="soorma-roster-sticky">
+<!-- BALL TRAIL SVG -->
+<svg id="ball-svg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; pointer-events: none;">
+<defs>
+<mask id="trail-mask">
+<path fill="none" id="mask-path" stroke="white" stroke-linecap="round" stroke-width="20"></path>
+</mask>
+</defs>
+<path fill="none" id="ball-trail-dashed" mask="url(#trail-mask)" opacity="0.8" stroke="#f97316" stroke-dasharray="12, 12" stroke-width="3"></path>
+</svg>
+<div id="soorma-cricket-ball" style="position: absolute; width: 16px; height: 16px; background: #ef4444; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 10px rgba(239, 68, 68, 0.8); z-index: 51; transform: translate(-50%, -50%); opacity: 0; transition: opacity 0.3s; pointer-events: none;"></div>
+
 <!-- SLIDE 1: MARQUEE -->
 <div class="soorma-slide active" id="slide-marquee">
 <div class="soorma-marquee-bg-text">THIS IS AMRITSAR</div>
@@ -2257,65 +2267,96 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('DOMContentLoaded', () => {
         const rosterSection = document.querySelector('.soorma-roster-section');
         const slides = document.querySelectorAll('.soorma-slide');
+        const ball = document.getElementById('soorma-cricket-ball');
+        const maskPath = document.getElementById('mask-path');
+        const dashedPath = document.getElementById('ball-trail-dashed');
         if (!rosterSection || slides.length === 0) return;
+        
+        let pathLength = 0;
+        
+        function drawPath() {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            // A sweeping S-curve: Top Right -> Mid Left -> Mid Right -> Bottom Left
+            const d = `M ${w*0.85} ${h*0.25} C ${w*0.1} ${h*0.25}, ${w*0.1} ${h*0.5}, ${w*0.5} ${h*0.5} C ${w*0.9} ${h*0.5}, ${w*0.9} ${h*0.75}, ${w*0.15} ${h*0.75}`;
+            
+            maskPath.setAttribute('d', d);
+            dashedPath.setAttribute('d', d);
+            
+            pathLength = maskPath.getTotalLength();
+            maskPath.style.strokeDasharray = pathLength;
+            maskPath.style.strokeDashoffset = pathLength;
+        }
+        
+        drawPath();
+        window.addEventListener('resize', drawPath);
         
         let activeIndex = 0;
         
         window.addEventListener('scroll', () => {
             const rect = rosterSection.getBoundingClientRect();
-            // Total scrollable distance is section height - window height
             const totalScrollable = rect.height - window.innerHeight;
-            // How far we've scrolled past the top of the section
             const scrolled = -rect.top;
             
             if (scrolled >= 0 && scrolled <= totalScrollable) {
-                // We are inside the section
+                // Inside section
                 const progress = scrolled / totalScrollable;
                 
-                // Determine which slide should be active (4 slides = 0 to 3)
+                // --- SLIDESHOW LOGIC ---
                 let newIndex = Math.floor(progress * slides.length);
                 if (newIndex >= slides.length) newIndex = slides.length - 1;
                 
                 if (newIndex !== activeIndex) {
                     slides.forEach((s, i) => {
                         s.classList.remove('active', 'incoming', 'outgoing');
-                        if (i === newIndex) {
-                            s.classList.add('active');
-                        } else if (i < newIndex) {
-                            s.classList.add('outgoing');
-                        } else {
-                            s.classList.add('incoming');
-                        }
+                        if (i === newIndex) s.classList.add('active');
+                        else if (i < newIndex) s.classList.add('outgoing');
+                        else s.classList.add('incoming');
                     });
                     activeIndex = newIndex;
                 }
+                
+                // --- BALL TRAIL LOGIC ---
+                if (ball && maskPath) {
+                    ball.style.opacity = 1;
+                    
+                    const clampedProgress = Math.min(Math.max(progress, 0.01), 0.99);
+                    const currentLength = pathLength * clampedProgress;
+                    
+                    maskPath.style.strokeDashoffset = pathLength - currentLength;
+                    
+                    const point = maskPath.getPointAtLength(currentLength);
+                    ball.style.left = point.x + 'px';
+                    ball.style.top = point.y + 'px';
+                }
+                
             } else if (scrolled < 0) {
-                // We are above the section
+                // Above section
+                if (ball) ball.style.opacity = 0;
                 if (activeIndex !== 0) {
                     slides.forEach(s => s.classList.remove('active', 'incoming', 'outgoing'));
                     slides[0].classList.add('active');
-                    for (let i = 1; i < slides.length; i++) {
-                        slides[i].classList.add('incoming');
-                    }
+                    for (let i = 1; i < slides.length; i++) slides[i].classList.add('incoming');
                     activeIndex = 0;
                 }
             } else {
-                // We are below the section
+                // Below section
+                if (ball) ball.style.opacity = 0;
                 const lastIdx = slides.length - 1;
                 if (activeIndex !== lastIdx) {
                     slides.forEach(s => s.classList.remove('active', 'incoming', 'outgoing'));
                     slides[lastIdx].classList.add('active');
-                    for (let i = 0; i < lastIdx; i++) {
-                        slides[i].classList.add('outgoing');
-                    }
+                    for (let i = 0; i < lastIdx; i++) slides[i].classList.add('outgoing');
                     activeIndex = lastIdx;
                 }
             }
         });
+        
+        // Trigger scroll once on load to position everything
+        window.dispatchEvent(new Event('scroll'));
     });
-  </script>
+</script>
 </section>
-
 <section class="mf1-search-section"><div class="w-layout-blockcontainer mf1-section-content-container w-container"><div class="mf1-search-cards-container"><div class="mf1-search-connector mf1-6" id="search-connector-6" style="opacity: 0; transform: translate(20%, 150%) rotate(-6.48884deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png 778w"/></div><div class="mf1-search-connector mf1-5" id="search-connector-5" style="opacity: 0; transform: translate(150%, -50%) rotate(5.02798deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="(max-width: 688px) 100vw, 688px" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png 688w"/></div><div class="mf1-search-connector mf1-4" id="search-connector-4" style="opacity: 0; transform: translate(-130%, -100%) rotate(-4.92815deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c2594b29f138a4026126a3_Group%201400005878%20(1).png"/></div><div class="mf1-search-connector mf1-3" id="search-connector-3" style="opacity: 0; transform: translate(180%, 20%) rotate(0.177808deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png 527w"/></div><div class="mf1-search-connector mf1-2" id="search-connector-2" style="opacity: 0; transform: translate(-60%, 150%) rotate(8.85873deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png 729w"/></div><div class="mf1-search-connector mf1-1" id="search-connector-1" style="opacity: 0; transform: translate(-200%, 10%) rotate(-3.02342deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png 634w"/></div></div><div class="mf1-search-content" id="w-node-cb2fc037-d0cb-4d7e-781d-6b4e5425843d-f9f398e2"><div class="mf1-content-text-area"><p class="mf1-caption">Dropbox Dash</p><h2 class="mf1-h2">Steering through complexity with Dash</h2><p class="mf1-paragraph">With thousands of files moving between teams and tools, Cricket Team uses Dash to cut through the chaos and stay ahead of the pack. AI-powered search surfaces what they need across platforms, chat can draft and summarize in seconds, and Stacks turn scattered resources into shared project hubs.</p></div><div aria-label="A search box query for Monaco campaign content." class="mf1-search-box-container" id="search-box-container" style="transform: translate(0px, 0px);"><div aria-hidden="true" class="mf1-search-box-border-mask"><div class="mf1-search-box-border"><div class="mf1-search-box-border-embed w-embed" id="search-box-border-embed"><svg height="100%" preserveaspectratio="none" viewbox="0 0 900 100" width="100%" xmlns="http://www.w3.org/2000/svg">
 <rect class="mf1-search-box-rect-trace" fill="none" height="100" pathlength="1" rx="40" ry="40" stroke="currentColor" stroke-width="50" width="900" x="0" y="0"></rect>
 </svg></div></div></div><div aria-hidden="true" class="mf1-search-box" id="search-box" style="box-shadow: 0 1px 6px rgba(var(--dbx-blue-rgb), 0.1), 0 3px 12px rgba(var(--dbx-blue-rgb), 0.1), 0 5px 20px rgba(var(--dbx-blue-rgb), 0.1);"><div class="mf1-search-box-placeholder-text" id="search-box-placeholder-text">2026 Marketing Materials</div><div class="mf1-search-box-filled-text" id="search-box-filled-text">Monaco Campaign Content</div><div aria-hidden="true" class="mf1-search-box-icon w-embed"><svg fill="currentColor" viewbox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
