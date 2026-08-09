@@ -1090,26 +1090,61 @@ console.log("Made by Daybreak: https://daybreak.studio");
 }
 
 
-/* Soorma Roster Sections */
+
+/* Soorma Roster Sections - Sticky Scroll Mode */
 .soorma-roster-section {
   position: relative;
   background-color: #000;
   color: #fff;
-  padding: 100px 5%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 120px;
+  height: 400vh; /* 4 slides */
+  width: 100%;
+  padding: 0;
+  display: block;
   font-family: Inter, sans-serif;
 }
 
-/* MARQUEE */
-.soorma-marquee {
-  position: relative;
+.soorma-roster-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.soorma-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  min-height: 80vh;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.soorma-slide.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.soorma-slide.incoming {
+  transform: translateY(20px);
+}
+
+.soorma-slide.outgoing {
+  transform: translateY(-20px);
+}
+
+/* MARQUEE */
+#slide-marquee {
+  justify-content: center;
 }
 .soorma-marquee-bg-text {
   position: absolute;
@@ -1268,20 +1303,21 @@ console.log("Made by Daybreak: https://daybreak.studio");
 
 /* TIERS COMMON */
 .soorma-tier-title {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 800;
   color: #fff;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   text-align: center;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
 }
 .soorma-grid {
   display: flex;
   gap: 24px;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 .soorma-card {
   background: #111;
@@ -1325,9 +1361,9 @@ console.log("Made by Daybreak: https://daybreak.studio");
 }
 
 /* SPECIFIC GRIDS */
-.iconic-card { max-width: 350px; }
-.aplus-card { max-width: 280px; }
-.squad-card { max-width: 220px; }
+.iconic-card { max-width: 400px; }
+.aplus-card { max-width: 320px; }
+.squad-card { max-width: 250px; }
 
 @media (max-width: 991px) {
   .soorma-marquee-content {
@@ -2125,17 +2161,23 @@ document.addEventListener('DOMContentLoaded', () => {
 </svg></div><div class="mf1-hero-stripe-negative-right w-embed" inert="true"><svg fill="currentColor" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 <path d="M100 0 L100 100 L0 0 Z"></path>
 </svg></div><div class="mf1-hero-stripe-cover" inert="true"></div><img id="hero-left-logo" src="Branding_stuff/Logo.png?v=2" style="position: absolute; left: 50%; transform: translateX(-600px); top: 35px; width: 170px; height: auto; z-index: 100;"/></div></section>
+
 <section class="soorma-roster-section" id="player-roster">
-<!-- MARQUEE: Abhishek -->
-<div class="soorma-marquee">
+<div class="soorma-roster-sticky">
+<!-- SLIDE 1: MARQUEE -->
+<div class="soorma-slide active" id="slide-marquee">
 <div class="soorma-marquee-bg-text">THIS IS AMRITSAR</div>
 <div class="soorma-marquee-content">
 <div class="soorma-marquee-left">
 <div class="soorma-marquee-meta">
-<span>COORDINATES</span>
-<strong>31.6340° N, 74.8723° E</strong>
+<span>CATEGORY</span>
+<strong>THE MARQUEE</strong>
 </div>
 <div class="soorma-marquee-meta">
+<span>ROLE</span>
+<strong>CAPTAIN</strong>
+</div>
+<div class="soorma-marquee-meta" style="margin-top: 10px;">
 <span>STATUS</span>
 <strong><span class="pulse-dot"></span> ACTIVE ROSTER</strong>
 </div>
@@ -2152,13 +2194,15 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 <div class="soorma-marquee-right">
+<!-- Additional meta or actions can go here, like name -->
+<h3 style="font-size: 32px; font-weight: 800; margin-bottom: 20px;">ABHISHEK<br/>SHARMA</h3>
 <a class="soorma-btn soorma-btn-primary" href="#player-roster">MEET THE SOORMAS</a>
 <a class="soorma-btn soorma-btn-secondary" href="#player-roster">EXPLORE TEAM</a>
 </div>
 </div>
 </div>
-<!-- ICONIC SOORMAS -->
-<div class="soorma-tier">
+<!-- SLIDE 2: ICONIC -->
+<div class="soorma-slide" id="slide-iconic">
 <h2 class="soorma-tier-title">ICONIC SOORMAS</h2>
 <div class="soorma-grid">
 <div class="soorma-card iconic-card">
@@ -2173,8 +2217,8 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 </div>
-<!-- A+ PLAYERS -->
-<div class="soorma-tier">
+<!-- SLIDE 3: A+ -->
+<div class="soorma-slide" id="slide-aplus">
 <h2 class="soorma-tier-title">A+ PLAYERS</h2>
 <div class="soorma-grid">
 <div class="soorma-card aplus-card">
@@ -2194,8 +2238,8 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 </div>
-<!-- THE SOORMA SQUAD -->
-<div class="soorma-tier">
+<!-- SLIDE 4: SQUAD -->
+<div class="soorma-slide" id="slide-squad">
 <h2 class="soorma-tier-title">THE SOORMA SQUAD</h2>
 <div class="soorma-grid">
 <div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
@@ -2208,24 +2252,70 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="soorma-card squad-card"><div class="soorma-card-img-placeholder">IMAGE TO BE ADDED</div><div class="soorma-card-name">PLAYER</div><div class="soorma-card-role">ROLE</div></div>
 </div>
 </div>
-
+</div>
 <script>
-window.addEventListener('scroll', () => {
-  const marquee = document.querySelector('.soorma-marquee');
-  if (!marquee) return;
-  const rect = marquee.getBoundingClientRect();
-  const scrollRatio = 1 - (rect.bottom / window.innerHeight);
-  
-  if (rect.top < window.innerHeight && rect.bottom > 0) {
-    const bgText = marquee.querySelector('.soorma-marquee-bg-text');
-    const img = marquee.querySelector('.soorma-marquee-img');
-    
-    if (bgText) bgText.style.transform = `translate(-50%, calc(-50% + ${scrollRatio * 100}px))`;
-    if (img) img.style.transform = `translateY(${scrollRatio * -50}px) scale(${1 + Math.abs(scrollRatio)*0.05})`;
-  }
-});
-</script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rosterSection = document.querySelector('.soorma-roster-section');
+        const slides = document.querySelectorAll('.soorma-slide');
+        if (!rosterSection || slides.length === 0) return;
+        
+        let activeIndex = 0;
+        
+        window.addEventListener('scroll', () => {
+            const rect = rosterSection.getBoundingClientRect();
+            // Total scrollable distance is section height - window height
+            const totalScrollable = rect.height - window.innerHeight;
+            // How far we've scrolled past the top of the section
+            const scrolled = -rect.top;
+            
+            if (scrolled >= 0 && scrolled <= totalScrollable) {
+                // We are inside the section
+                const progress = scrolled / totalScrollable;
+                
+                // Determine which slide should be active (4 slides = 0 to 3)
+                let newIndex = Math.floor(progress * slides.length);
+                if (newIndex >= slides.length) newIndex = slides.length - 1;
+                
+                if (newIndex !== activeIndex) {
+                    slides.forEach((s, i) => {
+                        s.classList.remove('active', 'incoming', 'outgoing');
+                        if (i === newIndex) {
+                            s.classList.add('active');
+                        } else if (i < newIndex) {
+                            s.classList.add('outgoing');
+                        } else {
+                            s.classList.add('incoming');
+                        }
+                    });
+                    activeIndex = newIndex;
+                }
+            } else if (scrolled < 0) {
+                // We are above the section
+                if (activeIndex !== 0) {
+                    slides.forEach(s => s.classList.remove('active', 'incoming', 'outgoing'));
+                    slides[0].classList.add('active');
+                    for (let i = 1; i < slides.length; i++) {
+                        slides[i].classList.add('incoming');
+                    }
+                    activeIndex = 0;
+                }
+            } else {
+                // We are below the section
+                const lastIdx = slides.length - 1;
+                if (activeIndex !== lastIdx) {
+                    slides.forEach(s => s.classList.remove('active', 'incoming', 'outgoing'));
+                    slides[lastIdx].classList.add('active');
+                    for (let i = 0; i < lastIdx; i++) {
+                        slides[i].classList.add('outgoing');
+                    }
+                    activeIndex = lastIdx;
+                }
+            }
+        });
+    });
+  </script>
 </section>
+
 <section class="mf1-search-section"><div class="w-layout-blockcontainer mf1-section-content-container w-container"><div class="mf1-search-cards-container"><div class="mf1-search-connector mf1-6" id="search-connector-6" style="opacity: 0; transform: translate(20%, 150%) rotate(-6.48884deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35531c701dd0017c98_Group%201400005881.png 778w"/></div><div class="mf1-search-connector mf1-5" id="search-connector-5" style="opacity: 0; transform: translate(150%, -50%) rotate(5.02798deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="(max-width: 688px) 100vw, 688px" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c25a35f9fb8af7ddff437b_Frame%201400005878%20(1).png 688w"/></div><div class="mf1-search-connector mf1-4" id="search-connector-4" style="opacity: 0; transform: translate(-130%, -100%) rotate(-4.92815deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c2594b29f138a4026126a3_Group%201400005878%20(1).png"/></div><div class="mf1-search-connector mf1-3" id="search-connector-3" style="opacity: 0; transform: translate(180%, 20%) rotate(0.177808deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26153143d12f364fb5052_Calendar%20(1).png 527w"/></div><div class="mf1-search-connector mf1-2" id="search-connector-2" style="opacity: 0; transform: translate(-60%, 150%) rotate(8.85873deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26141e0f8122115cbf326_Outlook%20(1).png 729w"/></div><div class="mf1-search-connector mf1-1" id="search-connector-1" style="opacity: 0; transform: translate(-200%, 10%) rotate(-3.02342deg);"><img alt="" class="mf1-search-connector-image" loading="lazy" sizes="100vw" src="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png" srcset="https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2)-p-500.png 500w, https://cdn.prod.website-files.com/65dcd70b48edc3a7b446950e/69c26127ed6f045a9f7b71e3_Dropbox%20(2).png 634w"/></div></div><div class="mf1-search-content" id="w-node-cb2fc037-d0cb-4d7e-781d-6b4e5425843d-f9f398e2"><div class="mf1-content-text-area"><p class="mf1-caption">Dropbox Dash</p><h2 class="mf1-h2">Steering through complexity with Dash</h2><p class="mf1-paragraph">With thousands of files moving between teams and tools, Cricket Team uses Dash to cut through the chaos and stay ahead of the pack. AI-powered search surfaces what they need across platforms, chat can draft and summarize in seconds, and Stacks turn scattered resources into shared project hubs.</p></div><div aria-label="A search box query for Monaco campaign content." class="mf1-search-box-container" id="search-box-container" style="transform: translate(0px, 0px);"><div aria-hidden="true" class="mf1-search-box-border-mask"><div class="mf1-search-box-border"><div class="mf1-search-box-border-embed w-embed" id="search-box-border-embed"><svg height="100%" preserveaspectratio="none" viewbox="0 0 900 100" width="100%" xmlns="http://www.w3.org/2000/svg">
 <rect class="mf1-search-box-rect-trace" fill="none" height="100" pathlength="1" rx="40" ry="40" stroke="currentColor" stroke-width="50" width="900" x="0" y="0"></rect>
 </svg></div></div></div><div aria-hidden="true" class="mf1-search-box" id="search-box" style="box-shadow: 0 1px 6px rgba(var(--dbx-blue-rgb), 0.1), 0 3px 12px rgba(var(--dbx-blue-rgb), 0.1), 0 5px 20px rgba(var(--dbx-blue-rgb), 0.1);"><div class="mf1-search-box-placeholder-text" id="search-box-placeholder-text">2026 Marketing Materials</div><div class="mf1-search-box-filled-text" id="search-box-filled-text">Monaco Campaign Content</div><div aria-hidden="true" class="mf1-search-box-icon w-embed"><svg fill="currentColor" viewbox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
