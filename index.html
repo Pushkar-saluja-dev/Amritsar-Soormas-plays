@@ -2278,11 +2278,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const w = window.innerWidth;
             const h = window.innerHeight;
             // A sweeping S-curve: Top Right -> Mid Left -> Mid Right -> Bottom Left
-            // A bumpy, looping path: Top Right -> Mid Left -> Mid Right -> Bottom Left
+            // Sharp bouncing ricochet path
             const d = `M ${w*0.85} ${h*0.25} 
-                       C ${w*0.5} ${h*0.05}, ${w*0.4} ${h*0.55}, ${w*0.15} ${h*0.4} 
-                       C ${w*-0.1} ${h*0.25}, ${w*0.4} ${h*0.75}, ${w*0.85} ${h*0.55} 
-                       C ${w*1.1} ${h*0.4}, ${w*0.5} ${h*0.95}, ${w*0.15} ${h*0.75}`;
+                       L ${w*0.85} ${h*0.65} 
+                       L ${w*0.15} ${h*0.95} 
+                       L ${w*0.05} ${h*0.45} 
+                       L ${w*0.50} ${h*0.05} 
+                       L ${w*0.90} ${h*0.60} 
+                       L ${w*0.25} ${h*0.85}`;
             
             maskPath.setAttribute('d', d);
             dashedPath.setAttribute('d', d);
