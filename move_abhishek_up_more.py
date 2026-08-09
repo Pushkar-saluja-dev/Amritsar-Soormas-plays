@@ -1,0 +1,20 @@
+import re
+from bs4 import BeautifulSoup
+
+with open('index.html', 'r', encoding='utf-8') as f:
+    soup = BeautifulSoup(f, 'html.parser')
+
+changes = []
+
+# Move Abhishek Sharma slightly more up by changing translateY from 25% to 20%
+img = soup.find('img', class_='mf1-hero-hero')
+if img:
+    old_style = img.get('style', '')
+    new_style = old_style.replace('translateY(25%)', 'translateY(20%)')
+    img['style'] = new_style
+    changes.append("Moved Abhishek image slightly more up to 20%")
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(str(soup))
+
+print(changes)
