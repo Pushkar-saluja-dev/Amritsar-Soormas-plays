@@ -1,12 +1,6 @@
 <svg width="600" height="480" viewBox="0 0 600 480" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="600" height="480" fill="url(#paint0_linear_1763_11372)"/>
-<g clip-path="url(#clip0_1763_11372)">
-<path d="M33.0181 30.191L26.0042 34.5968L33.0181 39.0027L40.0333 34.5968L47.0473 39.0027L54.0613 34.5968L47.0473 30.191L40.0333 34.5968L33.0181 30.191Z" fill="#1A1918"/>
-<path d="M33.0181 47.8144L26.0042 43.4086L33.0181 39.0027L40.0333 43.4086L33.0181 47.8144Z" fill="#1A1918"/>
-<path d="M40.0333 43.4086L47.0473 39.0027L54.0613 43.4086L47.0473 47.8144L40.0333 43.4086Z" fill="#0061FE"/>
-<path d="M40.0333 53.6888L33.0181 49.283L40.0333 44.8771L47.0473 49.283L40.0333 53.6888Z" fill="#1A1918"/>
-</g>
-<text x="70" y="47" font-family="sans-serif" font-weight="bold" font-size="22" fill="#1A1918">The Soorma's Logo</text>
+<text x="30" y="47" font-family="sans-serif" font-weight="bold" font-size="22" fill="#1A1918">The Soorma's Logo</text>
 <defs>
 <linearGradient id="paint0_linear_1763_11372" x1="300" y1="0" x2="300" y2="480" gradientUnits="userSpaceOnUse">
 <stop stop-color="white"/>
