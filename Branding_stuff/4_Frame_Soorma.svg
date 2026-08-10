@@ -1,7 +1,7 @@
 <svg width="600" height="480" viewBox="0 0 600 480" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="600" height="480" fill="url(#paint0_linear_1763_11406)"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M31.7022 52.665L28.927 49.2079C28.2594 48.3761 27.897 47.3533 27.897 46.3005V33.7821C27.897 32.2052 29.1586 30.8967 30.7861 30.7856L43.6568 29.9068C44.5918 29.843 45.5212 30.0915 46.2893 30.6108L50.8114 33.6682C51.6208 34.2155 52.103 35.1102 52.103 36.0649V50.2972C52.103 51.8404 50.8625 53.1181 49.269 53.2162L34.984 54.0955C33.7123 54.1738 32.4832 53.638 31.7022 52.665Z" fill="white"/>
-<text x="70" y="50" font-family="sans-serif" font-weight="bold" font-size="36" fill="#1A1918">THE SOORMA CODE</text>
+<text x="30" y="85" font-family="sans-serif" font-weight="bold" font-size="96" fill="#1A1918">THE SOORMA CODE</text>
 <defs>
 <linearGradient id="paint0_linear_1763_11406" x1="300" y1="0" x2="300" y2="480" gradientUnits="userSpaceOnUse">
 <stop stop-color="white"/>
