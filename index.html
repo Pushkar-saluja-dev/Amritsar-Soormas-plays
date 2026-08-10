@@ -3318,8 +3318,8 @@ document.addEventListener("DOMContentLoaded", () => {
         renderSecurityCanvas(false);
     }
 
-    const securityTexture1 = loadSecurityTexture("Branding_stuff/Cricket%20bat%20no%20color%20square.png");
-    const securityTexture2 = loadSecurityTexture("Branding_stuff/Cricket%20bat%20with%20color%20square.png");
+    const texture1 = loadSecurityTexture(securityGl, 'Branding_stuff/Cricket bat no color square.png');
+    const texture2 = loadSecurityTexture(securityGl, 'Branding_stuff/Cricket bat with color square prescaled.png');
 
     // Track texture loading
     let texturesLoaded = 0;
