@@ -3019,10 +3019,13 @@ document.addEventListener("DOMContentLoaded", () => {
     position: absolute;
     inset: 0px;
     }
-  .mf1-security-canvas-square { transform: translateY(15%) !important; }
-  .mf1-security-feature-anchor.mf1-anchor-1 { left: 40.9% !important; bottom: 49.35% !important; height: 10% !important; }
-  .mf1-security-feature-anchor.mf1-anchor-2 { left: 55.4% !important; bottom: 47.08% !important; height: 12% !important; }
-  .mf1-security-feature-anchor.mf1-anchor-3 { left: 85.0% !important; bottom: 42.38% !important; height: 7% !important; }
+  .mf1-security-canvas-square { transform: translateY(8%) !important; }
+.mf1-security-feature-anchor.mf1-anchor-1 { left: 24.5% !important; bottom: 58.0% !important; height: 0 !important; }
+.mf1-security-feature-anchor.mf1-anchor-2 { left: 55.8% !important; bottom: 58.5% !important; height: 0 !important; }
+.mf1-security-feature-anchor.mf1-anchor-3 { left: 82.6% !important; bottom: 59.0% !important; height: 0 !important; }
+
+/* Hide the drawn lines from original F1 */
+.mf1-anchor-line { display: none !important; }
 </style>
 <canvas class="mf1-security-canvas" height="1747" id="security-canvas" style="width: 1747px; height: 1747px;" width="1747"></canvas>
 <script id="security-vertex-shader" type="x-shader/x-vertex">
