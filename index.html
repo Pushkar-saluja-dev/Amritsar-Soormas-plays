@@ -1401,7 +1401,76 @@ console.log("Made by Daybreak: https://daybreak.studio");
     background-image: url('Branding_stuff/dbx-cover-soormas.svg') !important;
 }
 </style>
-</head><body class="mf1-body"><div class="mf1-global-styles w-embed"><style>
+</head><body class="mf1-body">
+<!-- Cricket Preloader -->
+<div id="cricket-preloader" class="cricket-preloader">
+  <div class="preloader-content">
+    <div class="cricket-pitch-stage">
+      <svg class="cricket-anim-svg" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="sparkGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FF8000" stop-opacity="1"/>
+            <stop offset="60%" stop-color="#FFA500" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#FF8000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="ballShine" cx="35%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#FF5555"/>
+            <stop offset="60%" stop-color="#CC0000"/>
+            <stop offset="100%" stop-color="#660000"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Impact Burst Glow -->
+        <circle id="preloader-spark" cx="340" cy="115" r="0" fill="url(#sparkGlow)" class="spark-burst"/>
+
+        <!-- Wickets Group -->
+        <g id="preloader-wickets" class="wickets-group">
+          <!-- Bails -->
+          <rect id="bail-left" class="bail bail-l" x="330" y="78" width="13" height="4" rx="2" fill="#E2A76F"/>
+          <rect id="bail-right" class="bail bail-r" x="345" y="78" width="13" height="4" rx="2" fill="#E2A76F"/>
+          
+          <!-- Stumps -->
+          <rect id="stump-left" class="stump stump-1" x="331" y="82" width="5" height="65" rx="2" fill="#F3D0A3"/>
+          <rect id="stump-middle" class="stump stump-2" x="342" y="82" width="5" height="65" rx="2" fill="#F3D0A3"/>
+          <rect id="stump-right" class="stump stump-3" x="353" y="82" width="5" height="65" rx="2" fill="#F3D0A3"/>
+        </g>
+
+        <!-- Motion Trail -->
+        <path id="ball-trail-path" d="M 40 130 Q 180 40 335 110" stroke="url(#sparkGlow)" stroke-width="2.5" stroke-linecap="round" class="preloader-ball-trail"/>
+
+        <!-- Spinning Cricket Ball Group -->
+        <g id="preloader-ball-group" class="ball-group">
+          <!-- Ball Body -->
+          <circle cx="0" cy="0" r="14" fill="url(#ballShine)"/>
+          <!-- Seam -->
+          <path d="M -14 0 C -7 -12 7 -12 14 0 C 7 12 -7 12 -14 0" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-dasharray="3 2"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  const preloader = document.getElementById('cricket-preloader');
+  if (!preloader) return;
+
+  function hidePreloader() {
+    preloader.classList.add('preloader-hidden');
+    setTimeout(function() {
+      if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+    }, 700);
+  }
+
+  const minTime = Date.now() + 1600;
+  window.addEventListener('load', function() {
+    const remaining = minTime - Date.now();
+    setTimeout(hidePreloader, Math.max(0, remaining));
+  });
+
+  setTimeout(hidePreloader, 3200);
+})();
+</script>
+<div class="mf1-global-styles w-embed"><style>
  
 * {
   margin: 0;

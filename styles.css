@@ -359,11 +359,160 @@ blockquote {
 .is-visible { opacity: 1; transform: translate(0); }
 
 /* Responsive */
-@media (max-width: 900px) {
-    .two-column { grid-template-columns: 1fr; gap: 2rem; }
-    .nav-center { display: none; }
-    .hero-section { padding-top: 100px; }
-    .orange-stripe { width: 100%; transform: rotate(20deg); top: 10%; }
-    .stats-grid { gap: 2rem; flex-direction: column; }
-    .hero-collage { transform: scale(0.7); margin-top: 0; }
+
+/* =========================================================
+   Cricket Preloader Styles & Animations
+   ========================================================= */
+.cricket-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0b0b0b;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s ease;
+    overflow: hidden;
 }
+
+.cricket-preloader.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 460px;
+    padding: 2rem;
+}
+
+.cricket-pitch-stage {
+    width: 100%;
+    max-width: 380px;
+    height: 200px;
+    position: relative;
+}
+
+.cricket-anim-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Ball Animation */
+.ball-group {
+    animation: spinBall 0.4s linear infinite, flyAndHitWicket 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards infinite;
+}
+
+.preloader-ball-trail {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawTrail 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards infinite;
+}
+
+@keyframes spinBall {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes drawTrail {
+    0% { stroke-dashoffset: 400; opacity: 0; }
+    20% { opacity: 1; }
+    70% { stroke-dashoffset: 0; opacity: 1; }
+    85%, 100% { opacity: 0; stroke-dashoffset: 0; }
+}
+
+@keyframes flyAndHitWicket {
+    0% {
+        transform: translate(30px, 140px) scale(0.6) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    45% {
+        transform: translate(180px, 75px) scale(0.85) rotate(540deg);
+    }
+    70% {
+        transform: translate(332px, 112px) scale(1) rotate(1080deg);
+        opacity: 1;
+    }
+    75%, 100% {
+        transform: translate(350px, 125px) scale(0.9) rotate(1200deg);
+        opacity: 0;
+    }
+}
+
+/* Wicket Impact Animations */
+.stump-1 {
+    transform-origin: bottom center;
+    animation: stumpHitLeft 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+.stump-2 {
+    transform-origin: bottom center;
+    animation: stumpHitMiddle 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+.stump-3 {
+    transform-origin: bottom center;
+    animation: stumpHitRight 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+
+.bail-l {
+    transform-origin: center;
+    animation: bailFlyLeft 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+.bail-r {
+    transform-origin: center;
+    animation: bailFlyRight 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+
+.spark-burst {
+    animation: sparkGlowBurst 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+
+@keyframes stumpHitLeft {
+    0%, 68% { transform: rotate(0deg); }
+    72% { transform: rotate(-18deg) translate(-4px, 2px); }
+    85%, 100% { transform: rotate(-12deg) translate(-2px, 1px); }
+}
+
+@keyframes stumpHitMiddle {
+    0%, 68% { transform: rotate(0deg); }
+    72% { transform: rotate(22deg) translate(6px, 4px); }
+    85%, 100% { transform: rotate(16deg) translate(4px, 2px); }
+}
+
+@keyframes stumpHitRight {
+    0%, 68% { transform: rotate(0deg); }
+    72% { transform: rotate(14deg) translate(3px, 1px); }
+    85%, 100% { transform: rotate(8deg) translate(2px, 0px); }
+}
+
+@keyframes bailFlyLeft {
+    0%, 68% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    74% { transform: translate(-25px, -45px) rotate(-380deg); opacity: 1; }
+    88%, 100% { transform: translate(-45px, 20px) rotate(-620deg); opacity: 0; }
+}
+
+@keyframes bailFlyRight {
+    0%, 68% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    74% { transform: translate(35px, -55px) rotate(420deg); opacity: 1; }
+    88%, 100% { transform: translate(60px, 15px) rotate(720deg); opacity: 0; }
+}
+
+@keyframes sparkGlowBurst {
+    0%, 67% { r: 0; opacity: 0; }
+    71% { r: 50px; opacity: 1; }
+    82%, 100% { r: 85px; opacity: 0; }
+}
+
+
