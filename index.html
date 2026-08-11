@@ -1321,8 +1321,9 @@ console.log("Made by Daybreak: https://daybreak.studio");
 }
 .soorma-card:hover {
   border-color: #f97316;
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.05);
   background: #1a1a1a;
+  z-index: 10;
 }
 .soorma-card-img-placeholder {
   width: 100%;
@@ -1346,6 +1347,16 @@ console.log("Made by Daybreak: https://daybreak.studio");
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 1px;
+  opacity: 0;
+  max-height: 0;
+  margin-top: -16px; /* offset the gap from parent */
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.soorma-card:hover .soorma-card-role {
+  opacity: 1;
+  max-height: 40px;
+  margin-top: 0;
 }
 
 /* SPECIFIC GRIDS */
