@@ -1454,20 +1454,50 @@ console.log("Made by Daybreak: https://daybreak.studio");
   const preloader = document.getElementById('cricket-preloader');
   if (!preloader) return;
 
+  let isHidden = false;
+
   function hidePreloader() {
+    if (isHidden) return;
+    isHidden = true;
     preloader.classList.add('preloader-hidden');
     setTimeout(function() {
       if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
     }, 700);
   }
 
-  const minTime = Date.now() + 1600;
-  window.addEventListener('load', function() {
-    const remaining = minTime - Date.now();
-    setTimeout(hidePreloader, Math.max(0, remaining));
-  });
+  function checkAllAssetsLoaded() {
+    const images = Array.from(document.images);
+    const pendingImages = images.filter(function(img) { return !img.complete; });
 
-  setTimeout(hidePreloader, 3200);
+    if (pendingImages.length === 0) {
+      hidePreloader();
+    } else {
+      let loadedCount = 0;
+      const totalPending = pendingImages.length;
+
+      pendingImages.forEach(function(img) {
+        function onFinish() {
+          loadedCount++;
+          if (loadedCount >= totalPending) {
+            hidePreloader();
+          }
+        }
+        img.addEventListener('load', onFinish, { once: true });
+        img.addEventListener('error', onFinish, { once: true });
+      });
+    }
+  }
+
+  if (document.readyState === 'complete') {
+    checkAllAssetsLoaded();
+  } else {
+    window.addEventListener('load', function() {
+      checkAllAssetsLoaded();
+    }, { once: true });
+  }
+
+  // Safety fallback net (60s) in case of hanging network connection
+  setTimeout(hidePreloader, 60000);
 })();
 </script>
 <div class="mf1-global-styles w-embed"><style>
