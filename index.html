@@ -3020,8 +3020,8 @@ document.addEventListener("DOMContentLoaded", () => {
     inset: 0px;
     }
 .mf1-security-canvas-square { transform: translateY(10%) !important; }
-.mf1-security-feature-anchor.mf1-anchor-1 { left: 28.8% !important; bottom: 59% !important; height: 0 !important; }
-.mf1-security-feature-anchor.mf1-anchor-2 { left: 55.5% !important; bottom: 55.9% !important; height: 0 !important; }
+.mf1-security-feature-anchor.mf1-anchor-1 { left: 55.5% !important; bottom: 55.9% !important; height: 0 !important; }
+.mf1-security-feature-anchor.mf1-anchor-2 { left: 28.8% !important; bottom: 59% !important; height: 0 !important; }
 .mf1-security-feature-anchor.mf1-anchor-3 { left: 76.5% !important; bottom: 53.5% !important; height: 0 !important; }
 
 /* Hide the drawn lines from original F1 */
@@ -3653,10 +3653,11 @@ mask-repeat: no-repeat;
 <script>
 
 document.addEventListener("DOMContentLoaded", () => {
-    const anchors = Array.from({ length: 3 }, (_, i) => document.getElementById(`security-feature-anchor-${i + 1}`));
-    const securityPageIndicators = Array.from({ length: 3 }, (_, i) => document.getElementById(`security-page-indicator-${i + 1}`));
-    const lockboxes = Array.from({ length: 3 }, (_, i) => document.getElementById(`anchor-lockbox-${i + 1}`));
-    const features = Array.from({ length: 3 }, (_, i) => document.getElementById(`security-feature-${i + 1}`));
+    const order = [2, 1, 3];
+    const anchors = order.map(i => document.getElementById(`security-feature-anchor-${i}`));
+    const securityPageIndicators = order.map(i => document.getElementById(`security-page-indicator-${i}`));
+    const lockboxes = order.map(i => document.getElementById(`anchor-lockbox-${i}`));
+    const features = order.map(i => document.getElementById(`security-feature-${i}`));
     const elements = [...lockboxes, ...features];
     let hoverCount = 0;
     let isLargeScreen = window.innerWidth >= 992;
