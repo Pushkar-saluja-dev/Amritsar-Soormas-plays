@@ -3927,8 +3927,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return match ? match[1].length : 0;
   };
 
-  const formatNumber = (value, decimalPlaces, useComma) => {
+  const formatNumber = (value, decimalPlaces, useComma, padLength = 0) => {
     let str = value.toFixed(decimalPlaces);
+    if (padLength > 0 && decimalPlaces === 0) {
+      str = str.padStart(padLength, '0');
+    }
     if (useComma) {
       str = str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -3944,9 +3947,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const hasComma = numStr.includes(",");
     const decimalPlaces = getDecimalPlaces(numStr);
     const target = parseFloat(numStr.replace(/,/g, ''));
+    const padLength = hasComma ? 0 : numStr.length;
     const suffix = suffixStr;
 
-    el.innerHTML = `<span class="mf1-stats-value-number">0</span><span class="mf1-stats-value-suffix" style="display: none;">${suffix}</span>`;
+    el.innerHTML = `<span class="mf1-stats-value-number">${formatNumber(0, decimalPlaces, hasComma, padLength)}</span><span class="mf1-stats-value-suffix" style="display: none;">${suffix}</span>`;
 
     const numberEl = el.querySelector(".mf1-stats-value-number");
     const suffixEl = el.querySelector(".mf1-stats-value-suffix");
@@ -3958,7 +3962,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const progress = Math.min(elapsed / duration, 1);
       const eased = easing(progress);
       const current = target * eased;
-      numberEl.textContent = formatNumber(current, decimalPlaces, hasComma);
+      numberEl.textContent = formatNumber(current, decimalPlaces, hasComma, padLength);
 
       if (progress < 1) {
         requestAnimationFrame(animate);
@@ -4070,9 +4074,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!el || !window.IntersectionObserver) return;
 
   new IntersectionObserver(([entry]) => {
-    if (entry.boundingClientRect.top > window.innerHeight * 0.5) {
-      el.style.setProperty('--stat-spacer-animation-progress', entry.isIntersecting ? '100%' : '0%');
-    }
+    el.style.setProperty('--stat-spacer-animation-progress', entry.isIntersecting ? '100%' : '0%');
   }, {
     rootMargin: '0px 0px -20% 0px',
     threshold: 0
