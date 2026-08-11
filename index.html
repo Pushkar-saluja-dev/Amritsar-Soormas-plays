@@ -4137,8 +4137,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //const power = 3;
     //const easedProgress = x < 0.5 ? ((2 * x) ** power) / 2 : 1 - (((2 * (1 - x)) ** power) / 2);
     const baseScale = 0.3;
-    car.style.transform = `translate(-50%, calc(${mappedX} * calc(100vw - ${carHeight}))) scale(${(1 - ((1 - mappedX) * 0.7)) * baseScale})`;
-    car.style.transformOrigin = `50% ${x * 100}%`;
+    car.style.transform = `translate(-50%, calc(${mappedX} * calc(100vw - ${carHeight}))) scale(${(1 - ((1 - mappedX) * 0.7)) * baseScale}) rotate(${x * 360}deg)`;
+    car.style.transformOrigin = `50% 50%`;
     
     //console.log(x, mappedX);
   }
