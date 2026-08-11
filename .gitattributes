@@ -1,0 +1,5 @@
+# Force GitHub Linguist to detect HTML, CSS, and JS in this repository
+*.html linguist-detectable=true
+*.css linguist-detectable=true
+*.js linguist-detectable=true
+dash.css linguist-vendored=false
