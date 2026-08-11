@@ -1239,16 +1239,29 @@ console.log("Made by Daybreak: https://daybreak.studio");
   transform: rotate(0deg) scale(1.05);
   opacity: 1;
 }
+.soorma-marquee-img-stack {
+  display: grid;
+}
+.soorma-marquee-img-stack > img {
+  grid-area: 1 / 1;
+}
 .soorma-marquee-img {
   width: 100%;
   max-width: 400px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
-.soorma-marquee-center:hover .soorma-marquee-img {
-  transform: scale(1.05) translateY(-10px);
+.soorma-img-helmet {
+  opacity: 0;
+}
+.soorma-marquee-center:hover .soorma-img-helmet {
+  opacity: 1;
+  transform: scale(1.15) translateY(-20px);
+}
+.soorma-marquee-center:hover .soorma-img-base {
+  opacity: 0;
 }
 
 .soorma-marquee-right {
@@ -2211,7 +2224,10 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <div class="soorma-marquee-center">
 <div class="soorma-marquee-center-frame">
-<img alt="Abhishek Sharma" class="soorma-marquee-img" loading="lazy" src="Branding_stuff/Abhishek Sharma.png"/>
+<div class="soorma-marquee-img-stack">
+<img alt="Abhishek Sharma" class="soorma-marquee-img soorma-img-base" loading="lazy" src="Branding_stuff/Abhishek Sharma.png"/>
+<img alt="Abhishek Sharma Helmet" class="soorma-marquee-img soorma-img-helmet" loading="lazy" src="Branding_stuff/Abhishek Sharma with helmet.png"/>
+</div>
 </div>
 </div>
 <div class="soorma-marquee-right">
